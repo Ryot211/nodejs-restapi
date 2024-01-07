@@ -23,14 +23,14 @@ export const getCarro1 = async (req, res) => {
 };
 
 export const createCarro = async (req, res) => {
-  const { marca, modelo, año, color, precio } = req.body;
+  const { marca, modelo, anio, color, precio } = req.body;
   try {
-    const [rows] = await pool.query('INSERT INTO carro (marca, modelo, año, color, precio) VALUES (?, ?, ?, ?, ?)', [marca, modelo, año, color, precio]);
+    const [rows] = await pool.query('INSERT INTO carro (marca, modelo, anio, color, precio) VALUES (?, ?, ?, ?, ?)', [marca, modelo, anio, color, precio]);
     res.json({
       id: rows.insertId,
       marca,
       modelo,
-      año,
+      anio,
       color,
       precio,
     });
@@ -53,9 +53,9 @@ export const deleteCarro = async (req, res) => {
 
 export const updateCarro = async (req, res) => {
   const { id } = req.params;
-  const { marca, modelo, año, color, precio } = req.body;
+  const { marca, modelo, anio, color, precio } = req.body;
   try {
-    const [result] = await pool.query('UPDATE carro SET marca=?, modelo=?, año=?, color=?, precio=? WHERE id=?', [marca, modelo, año, color, precio, id]);
+    const [result] = await pool.query('UPDATE carro SET marca=?, modelo=?, anio=?, color=?, precio=? WHERE id=?', [marca, modelo, anio, color, precio, id]);
     if (result.affectedRows === 0) return res.status(404).json({ message: 'Carro no encontrado.' });
     const [rows] = await pool.query('SELECT * FROM carro WHERE id=?', [id]);
     res.json(rows[0]);
