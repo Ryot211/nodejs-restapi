@@ -6,11 +6,26 @@ import { PORT } from './config.js';
 
 const app = express();
 
+const allowedOrigins = [
+  'https://ryot211.github.io',
+  'https://otrodominio.com',
+  'https://dominioadicional.com',
+  'http://localhost', // Aquí se agrega localhost
+  'http://127.0.0.1', // Y aquí
+];
+
 app.use(cors({
-  origin: 'https://ryot211.github.io', // Actualiza la URL al dominio de tu aplicación
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Dominio no permitido por CORS'));
+    }
+  },
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  credentials: true, // Permite que el navegador envíe cookies
+  credentials: true,
 }));
+
 app.use(express.json());
 
 app.use(indexRoutes);
