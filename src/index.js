@@ -6,13 +6,20 @@ import { PORT } from './config.js';
 
 const app = express();
 
-const corsOptions = {
-  origin: ['https://nodejs-restapi-production-dfc4.up.railway.app', 'http://127.0.0.1:5000'], // Dominios permitidos
-  methods: ['GET', 'POST', 'PATCH', 'PUT', 'DELETE'], // Métodos permitidos
-  allowedHeaders: ['Content-Type', 'Authorization'], // Encabezados permitidos
-};
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', 'http://127.0.0.1:5500'); // Cambia esta URL al dominio de tu aplicación
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 
-app.use(cors(corsOptions));
+  // Permite que el navegador envíe cookies
+  res.header('Access-Control-Allow-Credentials', 'true');
+
+  if (req.method === 'OPTIONS') {
+    res.sendStatus(200);
+  } else {
+    next();
+  }
+});
 app.use(express.json());
 
 app.use(indexRoutes);
