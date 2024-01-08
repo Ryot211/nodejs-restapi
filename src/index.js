@@ -8,7 +8,7 @@ import cors from 'cors';
 
 
 const corsOptions = {
-  origin: 'https://nodejs-restapi-production-dfc4.up.railway.app/api/carros', // Reemplaza esto con tu dominio de aplicación web
+  origin: ['https://nodejs-restapi-production-dfc4.up.railway.app/api/carros','http://127.0.0.1:500'], // Reemplaza esto con tu dominio de aplicación web
   methods: ['GET', 'POST', 'PATCH','PUT', 'DELETE'], // Métodos permitidos
   allowedHeaders: ['Content-Type', 'Authorization'], // Encabezados permitidos
 };
