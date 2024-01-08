@@ -7,7 +7,7 @@ import { PORT } from './config.js';
 const app = express();
 
 app.use(cors({
-  origin: ['http://127.0.0.1:5500','https://ryot211.github.io/appCar/'], // Cambia esta URL al dominio de tu aplicación
+  origin: 'https://ryot211.github.io/appCar/', // Cambia esta URL al dominio de tu aplicación
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true, // Permite que el navegador envíe cookies
 }));
