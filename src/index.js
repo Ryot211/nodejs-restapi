@@ -6,20 +6,11 @@ import { PORT } from './config.js';
 
 const app = express();
 
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'http://127.0.0.1:5500'); // Cambia esta URL al dominio de tu aplicación
-  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-
-  // Permite que el navegador envíe cookies
-  res.header('Access-Control-Allow-Credentials', 'true');
-
-  if (req.method === 'OPTIONS') {
-    res.sendStatus(200);
-  } else {
-    next();
-  }
-});
+app.use(cors({
+  origin: 'http://127.0.0.1:5500', // Cambia esta URL al dominio de tu aplicación
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true, // Permite que el navegador envíe cookies
+}));
 app.use(express.json());
 
 app.use(indexRoutes);
